@@ -5,6 +5,8 @@
 - 참조한 이미지 파일이 images/<테스트id>/ 에 실제로 있는지, 너무 크지 않은지
 - 결과 점수 구간이 겹치지 않는지, 나올 수 있는 모든 총점이 어떤 결과에든 들어가는지
 - index.json 의 questionCount 가 실제 문항 수와 같은지
+- index.json 의 resultType 이 테스트 파일과 같은지
+- resultType 이 choice 면 1문항이고, 보기 점수와 결과(min=max)가 1:1로 맞는지
 """
 import json
 import os
@@ -107,9 +109,37 @@ def check_test(entry):
         if uncovered:
             err("%s: 이 총점들은 해당 결과가 없음 %s" % (where, uncovered))
 
+    result_type = doc.get("resultType", "score")
+    if result_type not in ("score", "choice"):
+        err("%s: resultType 은 score 또는 choice (현재 %r)" % (where, result_type))
+    elif result_type == "choice":
+        check_choice(where, questions, results)
+
+    if entry.get("resultType", "score") != result_type:
+        err("index.json %s: resultType(%r)이 테스트 파일의 resultType(%r)과 다름 "
+            "(앱 목록이 시작 화면을 건너뛸지 이 값으로 정함)"
+            % (test_id, entry.get("resultType", "score"), result_type))
+
     if entry.get("questionCount") != len(questions):
         err("index.json %s: questionCount(%r)와 실제 문항 수(%d)가 다름"
             % (test_id, entry.get("questionCount"), len(questions)))
+
+
+def check_choice(where, questions, results):
+    """choice: 고른 보기 = 결과. 보기 i번의 score 와 결과 i번의 min=max 가 같아야 번호가 맞는다."""
+    if len(questions) != 1:
+        err("%s: resultType choice 는 문항이 1개여야 함 (현재 %d개)" % (where, len(questions)))
+        return
+    options = questions[0].get("options") or []
+    if len(options) != len(results):
+        err("%s: choice 는 보기 수(%d)와 결과 수(%d)가 같아야 함" % (where, len(options), len(results)))
+        return
+    for i, (o, r) in enumerate(zip(options, results), start=1):
+        if r.get("min") != r.get("max"):
+            err("%s: choice 결과 %d 는 min 과 max 가 같아야 함" % (where, i))
+        elif o.get("score") != r.get("min"):
+            err("%s: choice 보기 %d(score %r)와 결과 %d(min/max %r)가 맞지 않음"
+                % (where, i, o.get("score"), i, r.get("min")))
 
 
 def main():
@@ -129,11 +159,11 @@ def main():
         if test_id in seen:
             err("index.json: id 중복 %s" % test_id)
         seen.add(test_id)
-        for key in ("title", "thumbnail", "file", "minAppVersion"):
+        for key in ("title", "file", "minAppVersion"):
             if key not in entry:
                 err("index.json %s: %s 없음" % (test_id, key))
-        if entry.get("thumbnail"):
-            check_image(test_id, entry["thumbnail"], "index.json %s 썸네일" % test_id)
+        if "thumbnail" in entry:
+            err("index.json %s: thumbnail 은 더 이상 쓰지 않음. 항목을 지우세요" % test_id)
         check_test(entry)
 
     for w in warnings:
