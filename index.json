@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "tests": [
+    {
+      "id": "shy_drawing",
+      "title": "MBTI보다 정확한\n소심한 성격 그림 성격 테스트",
+      "thumbnail": "thumb.webp",
+      "questionCount": 10,
+      "file": "tests/shy_drawing.json",
+      "minAppVersion": 772,
+      "visible": true
+    },
+    {
+      "id": "animal_type",
+      "title": "MBTI보다 정확한\n동물 성향 성격 테스트",
+      "thumbnail": "thumb.webp",
+      "questionCount": 10,
+      "file": "tests/animal_type.json",
+      "minAppVersion": 772,
+      "visible": true
+    },
+    {
+      "id": "charm_flower",
+      "title": "MBTI에서 알려주지 않는\n당신의 매력 심리 테스트",
+      "thumbnail": "thumb.webp",
+      "questionCount": 7,
+      "file": "tests/charm_flower.json",
+      "minAppVersion": 772,
+      "visible": true
+    },
+    {
+      "id": "first_impression",
+      "title": "MBTI에서 알려주지 않는\n당신의 첫인상 성격 테스트",
+      "thumbnail": "thumb.webp",
+      "questionCount": 7,
+      "file": "tests/first_impression.json",
+      "minAppVersion": 772,
+      "visible": true
+    }
+  ]
+}

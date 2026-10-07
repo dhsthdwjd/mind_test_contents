@@ -1,0 +1,222 @@
+{
+  "schemaVersion": 1,
+  "id": "shy_drawing",
+  "title": "MBTI보다 정확한\n소심한 성격 그림 성격 테스트",
+  "questions": [
+    {
+      "type": "image",
+      "text": "가장 마음에 드는 그림을 선택하세요",
+      "options": [
+        {
+          "image": "q01_a.webp",
+          "score": 0
+        },
+        {
+          "image": "q01_b.webp",
+          "score": -1
+        },
+        {
+          "image": "q01_c.webp",
+          "score": 1
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "text": "그림에서 무엇이 먼저 보이시나요?",
+      "image": "q02.webp",
+      "options": [
+        {
+          "image": "q02_a.webp",
+          "score": -1
+        },
+        {
+          "image": "q02_b.webp",
+          "score": 1
+        },
+        {
+          "image": "q02_c.webp",
+          "score": 0
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "text": "가장 행복해 보이는 사진을 선택하세요",
+      "options": [
+        {
+          "image": "q03_a.webp",
+          "score": 1
+        },
+        {
+          "image": "q03_b.webp",
+          "score": 0
+        },
+        {
+          "image": "q03_c.webp",
+          "score": -1
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "text": "인간관계를 가장 잘 표현한 그림은 무엇인가요?",
+      "options": [
+        {
+          "image": "q04_a.webp",
+          "score": 0
+        },
+        {
+          "image": "q04_b.webp",
+          "score": 1
+        },
+        {
+          "image": "q04_c.webp",
+          "score": -1
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "text": "그림에서 무엇이 먼저 보이시나요?",
+      "image": "q05.webp",
+      "options": [
+        {
+          "image": "q05_a.webp",
+          "score": -1
+        },
+        {
+          "image": "q05_b.webp",
+          "score": 1
+        },
+        {
+          "image": "q05_c.webp",
+          "score": 0
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "text": "가장 힘들어 보이는 사람은 누구인가요?",
+      "options": [
+        {
+          "image": "q06_a.webp",
+          "score": 1
+        },
+        {
+          "image": "q06_b.webp",
+          "score": 0
+        },
+        {
+          "image": "q06_c.webp",
+          "score": -1
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "text": "평소 당신의 표정을 선택하세요",
+      "options": [
+        {
+          "image": "q07_a.webp",
+          "score": -1
+        },
+        {
+          "image": "q07_b.webp",
+          "score": 0
+        },
+        {
+          "image": "q07_c.webp",
+          "score": 1
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "text": "가장 마음에 드는 생일날 사진은 무엇인가요?",
+      "options": [
+        {
+          "image": "q08_a.webp",
+          "score": 1
+        },
+        {
+          "image": "q08_b.webp",
+          "score": -1
+        },
+        {
+          "image": "q08_c.webp",
+          "score": 0
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "text": "그림에서 무엇이 먼저 보이시나요?",
+      "image": "q09.webp",
+      "options": [
+        {
+          "image": "q09_a.webp",
+          "score": 1
+        },
+        {
+          "image": "q09_b.webp",
+          "score": 0
+        },
+        {
+          "image": "q09_c.webp",
+          "score": -1
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "text": "가장 마음에 드는 모양 1개를 선택하세요",
+      "options": [
+        {
+          "image": "q10_a.webp",
+          "score": 1
+        },
+        {
+          "image": "q10_b.webp",
+          "score": -1
+        },
+        {
+          "image": "q10_c.webp",
+          "score": 0
+        }
+      ]
+    }
+  ],
+  "results": [
+    {
+      "min": -10,
+      "max": -8,
+      "title": "순수하게 내성적",
+      "body": "당신은 솔직하고 믿을만한 사람이지만 즉흥적으로 행동을 하기보다는 상처가 될 수 있는 말이나 행동을 자제하면서 늘 조심합니다."
+    },
+    {
+      "min": -7,
+      "max": -4,
+      "title": "상황에 따른 내성적",
+      "body": "당신은 상황적 내성적인 성격입니다. 어떤 특정한 상황 속에서 소심해지거나 내성적인 면이 두드러지는 경향이 있는 분들입니다."
+    },
+    {
+      "min": -3,
+      "max": 3,
+      "title": "양향적인 성격",
+      "body": "양향적인 성격을 가진 분들은 내성적인 면과 외향적인 면을 동시에 가지고 있고 대처능력이 뛰어난 편이며 내성적인 듣기 모드와 외향적인 말하기 모드를 모두 장착하고 있습니다."
+    },
+    {
+      "min": 4,
+      "max": 7,
+      "title": "선택적 외향적인 성격",
+      "body": "특정한 상황에서 어쩔 수 없이 내성적이 되는 사람들과 다르게, 당신은 필요한 때마다 자신의 에너지를 충전하기 위해 특정한 상황을 만들거나 외향적인 모습으로 업그레이드하는 성향이 있습니다."
+    },
+    {
+      "min": 8,
+      "max": 10,
+      "title": "순수하게 외향적",
+      "body": "순수하게 외향적인 분들은 즉흥적으로 행동할 가능성이 높고 많은 사람들을 만나 활력을 얻어야만 합니다."
+    }
+  ]
+}
