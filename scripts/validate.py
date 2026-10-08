@@ -2,6 +2,7 @@
 
 검사 항목
 - JSON 문법, 필수 필드, 문항 type(image/text)별 보기 형식
+- 모든 글자 필드가 {"en": "...", "ko": "..."} 이고 두 언어 모두 채워져 있는지
 - 참조한 이미지 파일이 images/<테스트id>/ 에 실제로 있는지, 너무 크지 않은지
 - 이미지 규격: 그림 보기는 정사각형, 문항·결과 그림은 4:3, 모두 높이 600px 이상 (LEGACY_TESTS 제외)
 - 결과 점수 구간이 겹치지 않는지, 나올 수 있는 모든 총점이 어떤 결과에든 들어가는지
@@ -28,6 +29,26 @@ errors, warnings = [], []
 
 def err(msg):
     errors.append(msg)
+
+
+LANGUAGES = ("en", "ko")
+
+
+def check_text(value, where, required=True):
+    """글자 필드는 {"en": "...", "ko": "..."} 이고 두 언어 모두 비어 있으면 안 된다."""
+    if value is None:
+        if required:
+            err("%s: 없음" % where)
+        return
+    if not isinstance(value, dict):
+        err('%s: {"en": "...", "ko": "..."} 형식이어야 함 (현재 %r)' % (where, value))
+        return
+    for lang in LANGUAGES:
+        if not isinstance(value.get(lang), str) or not value[lang].strip():
+            err("%s: %s 글자가 비어 있음" % (where, lang))
+    extra = set(value) - set(LANGUAGES)
+    if extra:
+        err("%s: 알 수 없는 언어 %s (en, ko 만 사용)" % (where, sorted(extra)))
 
 
 def check_image(test_id, name, where, shape=None):
@@ -85,8 +106,7 @@ def check_test(entry):
 
     if doc.get("id") != test_id:
         err("%s: id(%s)가 index.json 의 id(%s)와 다름" % (where, doc.get("id"), test_id))
-    if not doc.get("title"):
-        err("%s: title 없음" % where)
+    check_text(doc.get("title"), "%s title" % where)
 
     questions = doc.get("questions") or []
     if not questions:
@@ -96,8 +116,7 @@ def check_test(entry):
         qtype = q.get("type")
         if qtype not in ("image", "text"):
             err("%s: type 은 image 또는 text (현재 %r)" % (qw, qtype))
-        if not q.get("text"):
-            err("%s: text 없음" % qw)
+        check_text(q.get("text"), "%s text" % qw)
         if "image" in q:
             check_image(test_id, q["image"], qw, WIDE)
         options = q.get("options") or []
@@ -109,8 +128,9 @@ def check_test(entry):
                 err("%s: score 는 정수여야 함" % ow)
             if qtype == "image":
                 check_image(test_id, o.get("image"), ow, SQUARE)
-            elif qtype == "text" and not o.get("text"):
-                err("%s: text 없음" % ow)
+                check_text(o.get("text"), "%s text" % ow, required=False)
+            else:
+                check_text(o.get("text"), "%s text" % ow)
 
     results = doc.get("results") or []
     if not results:
@@ -118,8 +138,8 @@ def check_test(entry):
     ranges = []
     for i, r in enumerate(results, start=1):
         rw = "%s 결과 %d" % (where, i)
-        if not r.get("title") or not r.get("body"):
-            err("%s: title/body 없음" % rw)
+        check_text(r.get("title"), "%s title" % rw)
+        check_text(r.get("body"), "%s body" % rw)
         if "image" in r:
             check_image(test_id, r["image"], rw, WIDE)
         if choice:
@@ -182,7 +202,8 @@ def main():
         if test_id in seen:
             err("index.json: id 중복 %s" % test_id)
         seen.add(test_id)
-        for key in ("title", "file", "minAppVersion"):
+        check_text(entry.get("title"), "index.json %s title" % test_id)
+        for key in ("file", "minAppVersion"):
             if key not in entry:
                 err("index.json %s: %s 없음" % (test_id, key))
         if "thumbnail" in entry:

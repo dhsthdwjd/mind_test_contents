@@ -58,6 +58,20 @@ scripts/              이미지 변환·검사 스크립트
 - **직접 그렸거나 상업 이용이 허락된 이미지만** 씁니다.
 - 기존 4개 테스트(shy_drawing, animal_type, charm_flower, first_impression)는 규격이 생기기 전에 만들어져 규격 검사에서 제외됩니다.
 
+## 글자는 영어·한국어 두 가지로 (필수)
+
+앱 기본 언어는 영어이고, 설정 > Language 에서 한국어로 바꿀 수 있습니다. 앱은 고른 언어의 글자를 보여줍니다.
+그래서 **화면에 보이는 모든 글자 필드**(제목, 문항, 보기, 결과 제목·설명)는 이렇게 씁니다.
+
+```json
+"title": { "en": "What did you see first?", "ko": "가장 먼저 무엇이 보였나요?" }
+```
+
+- `en`, `ko` 둘 다 채워야 합니다. 하나라도 비면 검사 스크립트가 오류를 냅니다.
+- 다른 언어(`ja` 등)는 쓰지 않습니다.
+- 이미지·점수·순서는 언어와 상관없이 하나만 둡니다.
+- 그림 안에 글자를 넣으면 언어를 바꿔도 그대로 보입니다. 글자는 되도록 `text`로 적습니다.
+
 ## JSON 형식
 
 ### index.json
@@ -67,7 +81,7 @@ scripts/              이미지 변환·검사 스크립트
   "tests": [
     {
       "id": "animal_type",
-      "title": "MBTI보다 정확한\n동물 성향 성격 테스트",
+      "title": { "en": "More Accurate Than MBTI:\nAnimal Personality Test", "ko": "MBTI보다 정확한\n동물 성향 성격 테스트" },
       "questionCount": 10,
       "file": "tests/animal_type.json",
       "minAppVersion": 772,
@@ -85,22 +99,22 @@ scripts/              이미지 변환·검사 스크립트
 {
   "schemaVersion": 1,
   "id": "animal_type",
-  "title": "…",
+  "title": { "en": "…", "ko": "…" },
   "questions": [
     {
       "type": "text",
-      "text": "질문",
+      "text": { "en": "Question", "ko": "질문" },
       "image": "q01.webp",
-      "options": [ { "text": "A. 보기", "score": 4 } ]
+      "options": [ { "text": { "en": "A. Option", "ko": "A. 보기" }, "score": 4 } ]
     },
     {
       "type": "image",
-      "text": "가장 마음에 드는 그림을 선택하세요",
-      "options": [ { "image": "q02_a.webp", "text": "1. 딸기잼", "score": 1 } ]
+      "text": { "en": "Choose the picture you like the most", "ko": "가장 마음에 드는 그림을 선택하세요" },
+      "options": [ { "image": "q02_a.webp", "text": { "en": "1. Strawberry jam", "ko": "1. 딸기잼" }, "score": 1 } ]
     }
   ],
   "results": [
-    { "min": 10, "max": 13, "title": "토끼", "body": "결과 설명", "image": "r01.webp" }
+    { "min": 10, "max": 13, "title": { "en": "Rabbit", "ko": "토끼" }, "body": { "en": "…", "ko": "결과 설명" }, "image": "r01.webp" }
   ]
 }
 ```
@@ -109,7 +123,7 @@ scripts/              이미지 변환·검사 스크립트
 - (score 방식) 총점 = 고른 보기 `score`의 합. 총점이 `min`~`max`(둘 다 포함)에 드는 결과를 보여줍니다.
 - 결과 `image`는 선택입니다.
 - `resultType`(선택): 결과를 보여주는 방식.
-  - `score` (기본값, 생략 가능): "당신의 점수: 14점"과 "13점 ~ 14점: 재스민"처럼 점수와 구간을 보여줍니다. 여러 문항을 합산하는 테스트용.
+  - `score` (기본값, 생략 가능): "당신의 점수: 14점"과 "13점 ~ 14점: 재스민"(영어: "Your score: 14", "13–14 pts: Jasmine")처럼 점수와 구간을 보여줍니다. 여러 문항을 합산하는 테스트용.
   - `choice`: **고른 보기가 곧 결과인 1문항 테스트용.** N번째 보기 → N번째 결과. `score`/`min`/`max` 없이 씁니다.
     결과에 "1번. 머리 먼저"처럼 번호가 붙고, 시작 화면(점수 합산 안내)을 건너뜁니다.
   - **choice 테스트는 `index.json`의 해당 항목에도 `"resultType": "choice"`를 똑같이 적습니다.** 앱 목록은 테스트 파일을 열기 전에 이 값으로 시작 화면을 건너뛸지 정합니다. (검사 스크립트가 두 값이 다르면 알려줌)
@@ -122,22 +136,22 @@ scripts/              이미지 변환·검사 스크립트
 ```json
 {
   "schemaVersion": 1,
-  "id": "love_test01",
-  "title": "아이스크림으로 알아보는\n내 연애력 확인 테스트",
+  "id": "icecream_topping",
+  "title": { "en": "What Your Ice Cream Says\nAbout Your Love Style", "ko": "아이스크림으로 알아보는\n내 연애력 확인 테스트" },
   "resultType": "choice",
   "questions": [
     {
       "type": "image",
-      "text": "당신이 바닐라 아이스크림의 토핑을 골라야 한다면 어떤 것을 고르시겠습니까?",
+      "text": { "en": "If you had to choose a topping\nfor vanilla ice cream, which would it be?", "ko": "당신이 바닐라 아이스크림의 토핑을\n골라야 한다면 어떤 것을 고르시겠습니까?" },
       "options": [
-        { "image": "q01_a.webp", "text": "1. 딸기잼" },
-        { "image": "q01_b.webp", "text": "2. 녹차시럽" }
+        { "image": "q01_a.webp", "text": { "en": "1. Strawberry jam", "ko": "1. 딸기잼" } },
+        { "image": "q01_b.webp", "text": { "en": "2. Matcha syrup", "ko": "2. 녹차시럽" } }
       ]
     }
   ],
   "results": [
-    { "title": "불타는 열정을 가진 사람", "body": "…" },
-    { "title": "연인에게 인정을 받고 싶어 하는 사람", "body": "…" }
+    { "title": { "en": "Strawberry jam", "ko": "딸기잼" }, "body": { "en": "…", "ko": "…" } },
+    { "title": { "en": "Matcha syrup", "ko": "녹차 시럽" }, "body": { "en": "…", "ko": "…" } }
   ]
 }
 ```
@@ -169,6 +183,7 @@ scripts/              이미지 변환·검사 스크립트
 
 ## 검사 스크립트가 잡아주는 것
 
+- 글자 필드에 영어(`en`)나 한국어(`ko`)가 빠진 경우
 - JSON 문법 오류, 빠진 필드, 잘못된 type, 보기 개수
 - JSON에 적었는데 실제로 없는 이미지, 150KB 넘는 이미지
 - 결과 점수 구간이 겹치는 경우

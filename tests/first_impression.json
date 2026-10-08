@@ -1,125 +1,203 @@
 {
   "schemaVersion": 1,
   "id": "first_impression",
-  "title": "MBTI에서 알려주지 않는\n당신의 첫인상 성격 테스트",
+  "title": {
+    "en": "What MBTI Won't Tell You:\nYour First Impression Test",
+    "ko": "MBTI에서 알려주지 않는\n당신의 첫인상 성격 테스트"
+  },
   "questions": [
     {
       "type": "text",
-      "text": "가장 먼저 무엇이 보였나요?",
+      "text": {
+        "en": "What did you see first?",
+        "ko": "가장 먼저 무엇이 보였나요?"
+      },
       "image": "q01.webp",
       "options": [
         {
-          "text": "물고기",
+          "text": {
+            "en": "Fish",
+            "ko": "물고기"
+          },
           "score": 1
         },
         {
-          "text": "고양이",
+          "text": {
+            "en": "Cat",
+            "ko": "고양이"
+          },
           "score": 2
         }
       ]
     },
     {
       "type": "text",
-      "text": "가장 먼저 무엇이 보였나요?",
+      "text": {
+        "en": "What did you see first?",
+        "ko": "가장 먼저 무엇이 보였나요?"
+      },
       "image": "q02.webp",
       "options": [
         {
-          "text": "외계인",
+          "text": {
+            "en": "Alien",
+            "ko": "외계인"
+          },
           "score": 1
         },
         {
-          "text": "UFO",
+          "text": {
+            "en": "UFO",
+            "ko": "UFO"
+          },
           "score": 2
         },
         {
-          "text": "동굴",
+          "text": {
+            "en": "Cave",
+            "ko": "동굴"
+          },
           "score": 4
         },
         {
-          "text": "사람들",
+          "text": {
+            "en": "People",
+            "ko": "사람들"
+          },
           "score": 3
         }
       ]
     },
     {
       "type": "text",
-      "text": "가장 먼저 무엇이 보였나요?",
+      "text": {
+        "en": "What did you see first?",
+        "ko": "가장 먼저 무엇이 보였나요?"
+      },
       "image": "q03.webp",
       "options": [
         {
-          "text": "여우",
+          "text": {
+            "en": "Fox",
+            "ko": "여우"
+          },
           "score": 1
         },
         {
-          "text": "돌고래",
+          "text": {
+            "en": "Dolphin",
+            "ko": "돌고래"
+          },
           "score": 2
         }
       ]
     },
     {
       "type": "text",
-      "text": "가장 먼저 무엇이 보였나요?",
+      "text": {
+        "en": "What did you see first?",
+        "ko": "가장 먼저 무엇이 보였나요?"
+      },
       "image": "q04.webp",
       "options": [
         {
-          "text": "닭",
+          "text": {
+            "en": "Chicken",
+            "ko": "닭"
+          },
           "score": 1
         },
         {
-          "text": "옆 얼굴",
+          "text": {
+            "en": "Side profile",
+            "ko": "옆 얼굴"
+          },
           "score": 2
         }
       ]
     },
     {
       "type": "text",
-      "text": "가장 먼저 무엇이 보였나요?",
+      "text": {
+        "en": "What did you see first?",
+        "ko": "가장 먼저 무엇이 보였나요?"
+      },
       "image": "q05.webp",
       "options": [
         {
-          "text": "소녀",
+          "text": {
+            "en": "Girl",
+            "ko": "소녀"
+          },
           "score": 3
         },
         {
-          "text": "풍경",
+          "text": {
+            "en": "Landscape",
+            "ko": "풍경"
+          },
           "score": 2
         },
         {
-          "text": "해골",
+          "text": {
+            "en": "Skull",
+            "ko": "해골"
+          },
           "score": 1
         }
       ]
     },
     {
       "type": "text",
-      "text": "가장 먼저 무엇이 보였나요?",
+      "text": {
+        "en": "What did you see first?",
+        "ko": "가장 먼저 무엇이 보였나요?"
+      },
       "image": "q06.webp",
       "options": [
         {
-          "text": "얼굴",
+          "text": {
+            "en": "Face",
+            "ko": "얼굴"
+          },
           "score": 3
         },
         {
-          "text": "표범",
+          "text": {
+            "en": "Leopard",
+            "ko": "표범"
+          },
           "score": 1
         },
         {
-          "text": "새",
+          "text": {
+            "en": "Bird",
+            "ko": "새"
+          },
           "score": 2
         }
       ]
     },
     {
       "type": "text",
-      "text": "가장 먼저 무엇이 보였나요?",
+      "text": {
+        "en": "What did you see first?",
+        "ko": "가장 먼저 무엇이 보였나요?"
+      },
       "image": "q07.webp",
       "options": [
         {
-          "text": "백설공주",
+          "text": {
+            "en": "Snow White",
+            "ko": "백설공주"
+          },
           "score": 2
         },
         {
-          "text": "셜록홈즈",
+          "text": {
+            "en": "Sherlock Holmes",
+            "ko": "셜록홈즈"
+          },
           "score": 1
         }
       ]
@@ -129,43 +207,79 @@
     {
       "min": 7,
       "max": 8,
-      "title": "지하세계를 다스리는 신, 하데스",
-      "body": "많은 사람들이 당신의 첫인상은 왠지 모르게 까탈스럽다고 느낄 수 있습니다.\n당신은 냉정하고 침착함을 유지하려고 하지만 그것은 가끔 화나있는 거 같은 인상을 줍니다.\n이것은 생각을 쉽게 공유하지 않고 친한 관계까지 가는데 시간이 오래 걸리기 때문에 받는 많은 오해들 중에 하나입니다.",
+      "title": {
+        "en": "Hades, ruler of the underworld",
+        "ko": "지하세계를 다스리는 신, 하데스"
+      },
+      "body": {
+        "en": "Many people may find your first impression a little hard to approach.\nYou try to stay cool and composed, but that can sometimes make you look upset.\nThis is one of many misunderstandings that come from not sharing your thoughts easily and taking time to get close to people.",
+        "ko": "많은 사람들이 당신의 첫인상은 왠지 모르게 까탈스럽다고 느낄 수 있습니다.\n당신은 냉정하고 침착함을 유지하려고 하지만 그것은 가끔 화나있는 거 같은 인상을 줍니다.\n이것은 생각을 쉽게 공유하지 않고 친한 관계까지 가는데 시간이 오래 걸리기 때문에 받는 많은 오해들 중에 하나입니다."
+      },
       "image": "r01.webp"
     },
     {
       "min": 9,
       "max": 10,
-      "title": "지상과 하늘을 주관하는 신, 제우스",
-      "body": "당신의 첫인상은 자신감이 있고 강해 보입니다.\n호흡이 잘 맞는 사람하고는 금방 친해지지만 속으로는 낯을 가리기도 하는 미스터리한 타입입니다.\n경쟁자처럼 보이는 사람에게는 완고한 면이 있고, 정의감이 강해서 타인을 잘 보살피기도 하지만 냉정한 평가도 서슴지 않는 리더십을 가진 매력의 소유자입니다.",
+      "title": {
+        "en": "Zeus, god of the earth and sky",
+        "ko": "지상과 하늘을 주관하는 신, 제우스"
+      },
+      "body": {
+        "en": "Your first impression is confident and strong.\nYou quickly bond with people you click with, but you're a mysterious type who is shy on the inside.\nYou can be stubborn with rivals. With a strong sense of justice, you look after others but don't hesitate to give honest feedback. You have the charm of a natural leader.",
+        "ko": "당신의 첫인상은 자신감이 있고 강해 보입니다.\n호흡이 잘 맞는 사람하고는 금방 친해지지만 속으로는 낯을 가리기도 하는 미스터리한 타입입니다.\n경쟁자처럼 보이는 사람에게는 완고한 면이 있고, 정의감이 강해서 타인을 잘 보살피기도 하지만 냉정한 평가도 서슴지 않는 리더십을 가진 매력의 소유자입니다."
+      },
       "image": "r02.webp"
     },
     {
       "min": 11,
       "max": 12,
-      "title": "신들의 여왕이라 불리는 헤라",
-      "body": "당신의 첫인상은 쓸데없이 고저스하고 우아해 보이는 스타일입니다. \n사람이 많거나 낯선 사람이 있으면 실수할까 봐 걱정돼서 평소보다 좀 참는 편입니다.\n하지만 이런 모습이 오히려 포스가 있고 아우라 넘치게 보여서 영향력과 카리스마가 있어 보이지만 때로는 뜻하지 않은 실수로 엉뚱함을 발휘하는 매력도 있습니다.",
+      "title": {
+        "en": "Hera, queen of the gods",
+        "ko": "신들의 여왕이라 불리는 헤라"
+      },
+      "body": {
+        "en": "Your first impression is surprisingly glamorous and elegant.\nAround crowds or strangers, you hold back more than usual because you worry about making mistakes.\nBut this actually makes you look powerful and full of aura, influential and charismatic, with the occasional unexpected slip that shows your quirky charm.",
+        "ko": "당신의 첫인상은 쓸데없이 고저스하고 우아해 보이는 스타일입니다. \n사람이 많거나 낯선 사람이 있으면 실수할까 봐 걱정돼서 평소보다 좀 참는 편입니다.\n하지만 이런 모습이 오히려 포스가 있고 아우라 넘치게 보여서 영향력과 카리스마가 있어 보이지만 때로는 뜻하지 않은 실수로 엉뚱함을 발휘하는 매력도 있습니다."
+      },
       "image": "r03.webp"
     },
     {
       "min": 13,
       "max": 14,
-      "title": "사랑과 아름다움의 여신, 아프로디테",
-      "body": "당신은 누가 봐도 첫인상이 정말로 사랑스러운 사람입니다.\n어디를 가든 항상 웃음과 기쁨을 가져다주고 많은 사람들이 당신의 친구가 되고 싶어 합니다.\n인정받고 싶고 사랑받고 싶은 욕구가 점점 커져서 사람들 중심에 서서 관심을 많이 받다 보면 에너지가 소진되고 금방 지쳐 휴식이 자주 필요해집니다.",
+      "title": {
+        "en": "Aphrodite, goddess of love and beauty",
+        "ko": "사랑과 아름다움의 여신, 아프로디테"
+      },
+      "body": {
+        "en": "Everyone finds your first impression truly lovable.\nWherever you go, you bring laughter and joy, and many people want to be your friend.\nYour desire to be recognized and loved keeps growing, so after being the center of attention you burn out quickly and often need a break.",
+        "ko": "당신은 누가 봐도 첫인상이 정말로 사랑스러운 사람입니다.\n어디를 가든 항상 웃음과 기쁨을 가져다주고 많은 사람들이 당신의 친구가 되고 싶어 합니다.\n인정받고 싶고 사랑받고 싶은 욕구가 점점 커져서 사람들 중심에 서서 관심을 많이 받다 보면 에너지가 소진되고 금방 지쳐 휴식이 자주 필요해집니다."
+      },
       "image": "r04.webp"
     },
     {
       "min": 15,
       "max": 16,
-      "title": "가정의 질서를 담당하는 신, 헤스티아",
-      "body": "당신의 첫인상은 누가 봐도 다정해 보이는 스타일입니다.\n누구든지 다가가기 편하게 상냥해 보이지만 나쁜 사람들 눈에는 만만하게 보이기도 합니다.\n누구에게나 편안함을 가져다주고 즐겁고 기분 좋은 타입이지만 당신은 친구들을 위해 존재하는 사람이 아니라는 사실을 인지해야 합니다.",
+      "title": {
+        "en": "Hestia, goddess of the home",
+        "ko": "가정의 질서를 담당하는 신, 헤스티아"
+      },
+      "body": {
+        "en": "Everyone sees you as warm and friendly at first glance.\nYou look kind and easy to approach, but people with bad intentions may see you as a pushover.\nYou bring comfort and good vibes to everyone, but remember that you don't exist just for your friends.",
+        "ko": "당신의 첫인상은 누가 봐도 다정해 보이는 스타일입니다.\n누구든지 다가가기 편하게 상냥해 보이지만 나쁜 사람들 눈에는 만만하게 보이기도 합니다.\n누구에게나 편안함을 가져다주고 즐겁고 기분 좋은 타입이지만 당신은 친구들을 위해 존재하는 사람이 아니라는 사실을 인지해야 합니다."
+      },
       "image": "r05.webp"
     },
     {
       "min": 17,
       "max": 18,
-      "title": "태양과 음악, 시와 의술, 예언의 신, 아폴론",
-      "body": "당신의 첫인상은 모나지 않고 원만한 사람입니다.\n윗사람으로부터는 인정을 받고, 동료들과는 친하게, 후배들로부터는 신뢰를 받는 누구하고도 잘 지내는 그런 모습입니다.\n자기 사랑이 강해서 스스로를 과대평가하는 경향이 있지만 진심으로 사람들을 대하고 배려심이 많으며 예술적 감각이 뛰어난 그런 사람입니다.",
+      "title": {
+        "en": "Apollo, god of the sun, music, poetry, healing, and prophecy",
+        "ko": "태양과 음악, 시와 의술, 예언의 신, 아폴론"
+      },
+      "body": {
+        "en": "Your first impression is easygoing and well-rounded.\nYou get along with everyone: respected by seniors, close with peers, and trusted by juniors.\nYou love yourself and may overrate yourself at times, but you treat people sincerely, are very considerate, and have a great artistic sense.",
+        "ko": "당신의 첫인상은 모나지 않고 원만한 사람입니다.\n윗사람으로부터는 인정을 받고, 동료들과는 친하게, 후배들로부터는 신뢰를 받는 누구하고도 잘 지내는 그런 모습입니다.\n자기 사랑이 강해서 스스로를 과대평가하는 경향이 있지만 진심으로 사람들을 대하고 배려심이 많으며 예술적 감각이 뛰어난 그런 사람입니다."
+      },
       "image": "r06.webp"
     }
   ]

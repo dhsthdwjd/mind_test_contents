@@ -3,7 +3,10 @@
   "tests": [
     {
       "id": "shy_drawing",
-      "title": "MBTI보다 정확한\n소심한 성격 그림 성격 테스트",
+      "title": {
+        "en": "More Accurate Than MBTI:\nShy Personality Picture Test",
+        "ko": "MBTI보다 정확한\n소심한 성격 그림 성격 테스트"
+      },
       "questionCount": 10,
       "file": "tests/shy_drawing.json",
       "minAppVersion": 772,
@@ -11,7 +14,10 @@
     },
     {
       "id": "animal_type",
-      "title": "MBTI보다 정확한\n동물 성향 성격 테스트",
+      "title": {
+        "en": "More Accurate Than MBTI:\nAnimal Personality Test",
+        "ko": "MBTI보다 정확한\n동물 성향 성격 테스트"
+      },
       "questionCount": 10,
       "file": "tests/animal_type.json",
       "minAppVersion": 772,
@@ -19,7 +25,10 @@
     },
     {
       "id": "charm_flower",
-      "title": "MBTI에서 알려주지 않는\n당신의 매력 심리 테스트",
+      "title": {
+        "en": "What MBTI Won't Tell You:\nYour Charm Test",
+        "ko": "MBTI에서 알려주지 않는\n당신의 매력 심리 테스트"
+      },
       "questionCount": 7,
       "file": "tests/charm_flower.json",
       "minAppVersion": 772,
@@ -27,16 +36,22 @@
     },
     {
       "id": "first_impression",
-      "title": "MBTI에서 알려주지 않는\n당신의 첫인상 성격 테스트",
+      "title": {
+        "en": "What MBTI Won't Tell You:\nYour First Impression Test",
+        "ko": "MBTI에서 알려주지 않는\n당신의 첫인상 성격 테스트"
+      },
       "questionCount": 7,
       "file": "tests/first_impression.json",
       "minAppVersion": 772,
       "visible": true
     },
     {
-	  "resultType": "choice",
+      "resultType": "choice",
       "id": "icecream_topping",
-      "title": "아이스크림으로 알아보는\n내 연애력 확인 테스트",
+      "title": {
+        "en": "What Your Ice Cream Says\nAbout Your Love Style",
+        "ko": "아이스크림으로 알아보는\n내 연애력 확인 테스트"
+      },
       "questionCount": 1,
       "file": "tests/icecream_topping.json",
       "minAppVersion": 772,
