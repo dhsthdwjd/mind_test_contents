@@ -1,6 +1,7 @@
 """source/<테스트id>/ 의 원본 이미지를 images/<테스트id>/ 에 WebP로 변환해 넣는다.
 
-- 긴 변이 MAX_SIDE보다 크면 줄이고, 작으면 그대로 둔다 (확대하지 않음).
+- 짧은 변이 SHORT_SIDE(600px)보다 크면 600px로 줄이고, 작으면 그대로 둔다 (확대하지 않음).
+  정사각형은 600x600, 4:3은 800x600이 된다. 비율은 바꾸지 않는다 (README의 이미지 규격대로 준비).
 - 파일명은 확장자만 .webp로 바꾸고 그대로 쓴다.
 - 이미 images/ 에 같은 이름이 있으면 덮어쓰지 않고 건너뛴다.
   (앱이 이미지를 캐시하므로, 그림을 고칠 땐 q01_a_v2.png 처럼 새 이름으로 넣는다)
@@ -14,7 +15,7 @@ import sys
 from PIL import Image
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-MAX_SIDE = 600
+SHORT_SIDE = 600
 QUALITY = 80
 EXTS = (".png", ".jpg", ".jpeg", ".webp")
 
@@ -34,8 +35,10 @@ def build(test_id):
             continue
         with Image.open(os.path.join(src_dir, name)) as im:
             im = im.convert("RGBA") if im.mode in ("P", "LA", "RGBA") else im.convert("RGB")
-            if max(im.size) > MAX_SIDE:
-                im.thumbnail((MAX_SIDE, MAX_SIDE), Image.LANCZOS)
+            short = min(im.size)
+            if short > SHORT_SIDE:
+                scale = SHORT_SIDE / short
+                im = im.resize((round(im.width * scale), round(im.height * scale)), Image.LANCZOS)
             im.save(out, "WEBP", quality=QUALITY, method=6)
         made += 1
         print("  +", os.path.relpath(out, ROOT), "%dKB" % (os.path.getsize(out) // 1024))

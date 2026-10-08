@@ -3,17 +3,26 @@
 검사 항목
 - JSON 문법, 필수 필드, 문항 type(image/text)별 보기 형식
 - 참조한 이미지 파일이 images/<테스트id>/ 에 실제로 있는지, 너무 크지 않은지
+- 이미지 규격: 그림 보기는 정사각형, 문항·결과 그림은 4:3, 모두 높이 600px 이상 (LEGACY_TESTS 제외)
 - 결과 점수 구간이 겹치지 않는지, 나올 수 있는 모든 총점이 어떤 결과에든 들어가는지
 - index.json 의 questionCount 가 실제 문항 수와 같은지
 - index.json 의 resultType 이 테스트 파일과 같은지
-- resultType 이 choice 면 1문항이고, 보기 점수와 결과(min=max)가 1:1로 맞는지
+- resultType 이 choice 면 1문항이고, 보기 수와 결과 수가 같은지 (N번 보기 → N번 결과)
 """
 import json
 import os
 import sys
 
+from PIL import Image
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MAX_IMAGE_KB = 150
+MIN_SIDE = 600          # 그림 보기: 한 변, 문항·결과 그림: 높이
+RATIO_TOLERANCE = 0.02  # 2%
+SQUARE = (1, 1)         # 그림 보기
+WIDE = (4, 3)           # 문항 위 그림, 결과 그림
+# 이미지 규격(README)이 생기기 전에 만든 테스트. 규격 검사만 건너뛴다.
+LEGACY_TESTS = {"shy_drawing", "animal_type", "charm_flower", "first_impression"}
 errors, warnings = [], []
 
 
@@ -21,16 +30,29 @@ def err(msg):
     errors.append(msg)
 
 
-def check_image(test_id, name, where):
+def check_image(test_id, name, where, shape=None):
+    """shape: SQUARE 또는 WIDE 면 비율과 최소 크기도 검사한다."""
     if not isinstance(name, str) or not name:
         err("%s: 이미지 이름이 비어 있음" % where)
         return
     path = os.path.join(ROOT, "images", test_id, name)
     if not os.path.isfile(path):
         err("%s: 이미지 없음 images/%s/%s" % (where, test_id, name))
-    elif os.path.getsize(path) > MAX_IMAGE_KB * 1024:
+        return
+    if os.path.getsize(path) > MAX_IMAGE_KB * 1024:
         warnings.append("%s: %s 가 %dKB (권장 %dKB 이하)"
                         % (where, name, os.path.getsize(path) // 1024, MAX_IMAGE_KB))
+    if shape is None or test_id in LEGACY_TESTS:
+        return
+    with Image.open(path) as im:
+        w, h = im.size
+    rw, rh = shape
+    label = "정사각형" if shape == SQUARE else "4:3"
+    if abs(w * rh - h * rw) > RATIO_TOLERANCE * h * rw:
+        err("%s: %s 는 %s 이어야 함 (현재 %dx%d)" % (where, name, label, w, h))
+    if h < MIN_SIDE:
+        err("%s: %s 는 높이 %dpx 이상이어야 함 (현재 %dx%d). 원본을 더 크게 준비하세요"
+            % (where, name, MIN_SIDE, w, h))
 
 
 def reachable_totals(questions):
@@ -55,6 +77,12 @@ def check_test(entry):
         err("%s: JSON 문법 오류 %s" % (where, e))
         return
 
+    result_type = doc.get("resultType", "score")
+    if result_type not in ("score", "choice"):
+        err("%s: resultType 은 score 또는 choice (현재 %r)" % (where, result_type))
+        return
+    choice = result_type == "choice"
+
     if doc.get("id") != test_id:
         err("%s: id(%s)가 index.json 의 id(%s)와 다름" % (where, doc.get("id"), test_id))
     if not doc.get("title"):
@@ -71,16 +99,16 @@ def check_test(entry):
         if not q.get("text"):
             err("%s: text 없음" % qw)
         if "image" in q:
-            check_image(test_id, q["image"], qw)
+            check_image(test_id, q["image"], qw, WIDE)
         options = q.get("options") or []
         if not 2 <= len(options) <= 4:
             err("%s: 보기는 2~4개 (현재 %d개)" % (qw, len(options)))
         for k, o in enumerate(options, start=1):
             ow = "%s 보기 %d" % (qw, k)
-            if not isinstance(o.get("score"), int):
+            if not choice and not isinstance(o.get("score"), int):
                 err("%s: score 는 정수여야 함" % ow)
             if qtype == "image":
-                check_image(test_id, o.get("image"), ow)
+                check_image(test_id, o.get("image"), ow, SQUARE)
             elif qtype == "text" and not o.get("text"):
                 err("%s: text 없음" % ow)
 
@@ -90,29 +118,28 @@ def check_test(entry):
     ranges = []
     for i, r in enumerate(results, start=1):
         rw = "%s 결과 %d" % (where, i)
+        if not r.get("title") or not r.get("body"):
+            err("%s: title/body 없음" % rw)
+        if "image" in r:
+            check_image(test_id, r["image"], rw, WIDE)
+        if choice:
+            continue
         lo, hi = r.get("min"), r.get("max")
         if not isinstance(lo, int) or not isinstance(hi, int) or lo > hi:
             err("%s: min/max 가 잘못됨 (%r~%r)" % (rw, lo, hi))
             continue
-        if not r.get("title") or not r.get("body"):
-            err("%s: title/body 없음" % rw)
-        if "image" in r:
-            check_image(test_id, r["image"], rw)
         ranges.append((lo, hi, i))
-    ranges.sort()
-    for (a_lo, a_hi, a), (b_lo, b_hi, b) in zip(ranges, ranges[1:]):
-        if b_lo <= a_hi:
-            err("%s: 결과 %d(%d~%d)과 결과 %d(%d~%d) 구간이 겹침" % (where, a, a_lo, a_hi, b, b_lo, b_hi))
-    if questions and ranges:
-        uncovered = sorted(t for t in reachable_totals(questions)
-                           if not any(lo <= t <= hi for lo, hi, _ in ranges))
-        if uncovered:
-            err("%s: 이 총점들은 해당 결과가 없음 %s" % (where, uncovered))
-
-    result_type = doc.get("resultType", "score")
-    if result_type not in ("score", "choice"):
-        err("%s: resultType 은 score 또는 choice (현재 %r)" % (where, result_type))
-    elif result_type == "choice":
+    if not choice:
+        ranges.sort()
+        for (a_lo, a_hi, a), (b_lo, b_hi, b) in zip(ranges, ranges[1:]):
+            if b_lo <= a_hi:
+                err("%s: 결과 %d(%d~%d)과 결과 %d(%d~%d) 구간이 겹침" % (where, a, a_lo, a_hi, b, b_lo, b_hi))
+        if questions and ranges:
+            uncovered = sorted(t for t in reachable_totals(questions)
+                               if not any(lo <= t <= hi for lo, hi, _ in ranges))
+            if uncovered:
+                err("%s: 이 총점들은 해당 결과가 없음 %s" % (where, uncovered))
+    else:
         check_choice(where, questions, results)
 
     if entry.get("resultType", "score") != result_type:
@@ -126,20 +153,16 @@ def check_test(entry):
 
 
 def check_choice(where, questions, results):
-    """choice: 고른 보기 = 결과. 보기 i번의 score 와 결과 i번의 min=max 가 같아야 번호가 맞는다."""
+    """choice: 1문항에서 N번째 보기를 고르면 N번째 결과. score/min/max 는 쓰지 않는다."""
     if len(questions) != 1:
         err("%s: resultType choice 는 문항이 1개여야 함 (현재 %d개)" % (where, len(questions)))
         return
     options = questions[0].get("options") or []
     if len(options) != len(results):
-        err("%s: choice 는 보기 수(%d)와 결과 수(%d)가 같아야 함" % (where, len(options), len(results)))
-        return
-    for i, (o, r) in enumerate(zip(options, results), start=1):
-        if r.get("min") != r.get("max"):
-            err("%s: choice 결과 %d 는 min 과 max 가 같아야 함" % (where, i))
-        elif o.get("score") != r.get("min"):
-            err("%s: choice 보기 %d(score %r)와 결과 %d(min/max %r)가 맞지 않음"
-                % (where, i, o.get("score"), i, r.get("min")))
+        err("%s: choice 는 보기 수(%d)와 결과 수(%d)가 같아야 함 (N번 보기 → N번 결과)"
+            % (where, len(options), len(results)))
+    if any("score" in o for o in options) or any("min" in r or "max" in r for r in results):
+        warnings.append("%s: choice 테스트는 score/min/max 를 쓰지 않음 (무시됨). 지워도 됩니다" % where)
 
 
 def main():

@@ -32,6 +32,15 @@
       "file": "tests/first_impression.json",
       "minAppVersion": 772,
       "visible": true
+    },
+    {
+	  "resultType": "choice",
+      "id": "icecream_topping",
+      "title": "아이스크림으로 알아보는\n내 연애력 확인 테스트",
+      "questionCount": 1,
+      "file": "tests/icecream_topping.json",
+      "minAppVersion": 772,
+      "visible": true
     }
   ]
 }
