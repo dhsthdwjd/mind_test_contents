@@ -84,7 +84,7 @@ scripts/              이미지 변환·검사 스크립트
       "title": { "en": "More Accurate Than MBTI:\nAnimal Personality Test", "ko": "MBTI보다 정확한\n동물 성향 성격 테스트" },
       "questionCount": 10,
       "file": "tests/animal_type.json",
-      "minAppVersion": 772,
+      "minAppVersion": 1,
       "visible": true
     }
   ]

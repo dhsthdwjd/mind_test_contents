@@ -9,7 +9,7 @@
       },
       "questionCount": 10,
       "file": "tests/shy_drawing.json",
-      "minAppVersion": 772,
+      "minAppVersion": 1,
       "visible": true
     },
     {
@@ -20,7 +20,7 @@
       },
       "questionCount": 10,
       "file": "tests/animal_type.json",
-      "minAppVersion": 772,
+      "minAppVersion": 1,
       "visible": true
     },
     {
@@ -31,7 +31,7 @@
       },
       "questionCount": 7,
       "file": "tests/charm_flower.json",
-      "minAppVersion": 772,
+      "minAppVersion": 1,
       "visible": true
     },
     {
@@ -42,7 +42,7 @@
       },
       "questionCount": 7,
       "file": "tests/first_impression.json",
-      "minAppVersion": 772,
+      "minAppVersion": 1,
       "visible": true
     },
     {
@@ -54,7 +54,7 @@
       },
       "questionCount": 1,
       "file": "tests/icecream_topping.json",
-      "minAppVersion": 772,
+      "minAppVersion": 1,
       "visible": true
     }
   ]
